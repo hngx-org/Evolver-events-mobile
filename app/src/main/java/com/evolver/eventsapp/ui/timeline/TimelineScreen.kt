@@ -5,8 +5,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -48,6 +50,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.evolver.eventsapp.R
 
 data class Event(
@@ -176,84 +179,97 @@ fun TimeLineScreen() {
 
 
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            SearchBar(modifier = Modifier.fillMaxWidth(),
-                query = text,
-                onQueryChange = { text = it },
-                onSearch = {
-                    items.add(text)
-                    active = false
-                    text = ""
-                },
-                active = active,
-                onActiveChange = {
-                    active = it
-                },
-                placeholder = { Text(text = "Find event") },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = "Find event"
-                    )
-                },
-                trailingIcon = {
-                    if (active) {
+        Box(
+            modifier = Modifier
+                .background(Color(0xFF3F3849))
+                .fillMaxHeight()
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                SearchBar(modifier = Modifier.fillMaxWidth(),
+                    query = text,
+                    onQueryChange = { text = it },
+                    onSearch = {
+                        items.add(text)
+                        active = false
+                        text = ""
+                    },
+                    active = active,
+                    onActiveChange = {
+                        active = it
+                    },
+                    placeholder = { Text(text = "Find event", fontSize = 18.sp) },
+                    leadingIcon = {
                         Icon(
-                            modifier = Modifier.clickable {
-                                if (text.isNotEmpty()) {
-                                    text = ""
-                                } else {
-                                    active = false
-                                }
+                            imageVector = Icons.Default.Search,
+                            contentDescription = "Find event"
+                        )
+                    },
+                    trailingIcon = {
+                        if (active) {
+                            Icon(
+                                modifier = Modifier.clickable {
+                                    if (text.isNotEmpty()) {
+                                        text = ""
+                                    } else {
+                                        active = false
+                                    }
 
-                            },
-                            imageVector = Icons.Default.Close, contentDescription = "Close"
-                        )
-                    }
-                }) {
-                items.forEach {
-                    Row(modifier = Modifier.padding(all = 14.dp)) {
-                        Icon(
-                            modifier = Modifier.padding(end = 10.dp),
-                            imageVector = Icons.Default.History, contentDescription = "History"
-                        )
-                        Text(text = it)
+                                },
+                                imageVector = Icons.Default.Close, contentDescription = "Close"
+                            )
+                        }
+                    }) {
+                    items.forEach {
+                        Row(modifier = Modifier.padding(all = 14.dp)) {
+                            Icon(
+                                modifier = Modifier.padding(end = 10.dp),
+                                imageVector = Icons.Default.History, contentDescription = "History"
+                            )
+                            Text(text = it)
+                        }
                     }
                 }
-            }
 
-            Surface(
-                shape = RoundedCornerShape(24.dp),
-                modifier = Modifier
-                    .wrapContentSize()
-                    .padding(top = 16.dp, bottom = 16.dp)
-            ) {
-                TabRow(
-                    selectedTabIndex = tabIndex,
+                Surface(
+                    shape = RoundedCornerShape(24.dp),
                     modifier = Modifier
-                        .background(
-                            color = Color.Blue
-                        ).wrapContentSize(),
+                        .width(250.dp)
+                        .align(Alignment.CenterHorizontally)
+                        .wrapContentSize()
+                        .padding(top = 16.dp, bottom = 16.dp)
                 ) {
-                    tabs.forEachIndexed { index, title ->
-                        Tab(text = { Text(title) },
-                            selected = tabIndex == index,
-                            onClick = { tabIndex = index }
-                        )
+                    TabRow(
+                        selectedTabIndex = tabIndex,
+                        modifier = Modifier
+                            .background(
+                                color = Color.Blue
+                            )
+                            .wrapContentSize(),
+                    ) {
+                        tabs.forEachIndexed { index, title ->
+                            Tab(text = { Text(title) },
+                                selected = tabIndex == index,
+                                onClick = { tabIndex = index }
+                            )
+                        }
                     }
                 }
-            }
-            when (tabIndex) {
-//                0 -> FriendsScreen()
-//                1 -> EveryoneScreen()
-            }
+                when (tabIndex) {
+                    //                0 -> FriendsScreen()
+                    //                1 -> EveryoneScreen()
+                }
 
-            Column {
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(events) { event ->
-                        TimeLineCardItem(event)
+                Column {
+                    LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(events) { event ->
+                            TimeLineCardItem(event)
+                        }
                     }
                 }
+
+                Box(modifier = Modifier
+                 .height(896.dp)
+                  .background(color = Color(0xFFFEFDFF)))
             }
         }
     }
@@ -305,7 +321,7 @@ fun TimeLineCardItem(event: Event) {
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
-                IconButton(onClick = { /*TODO*/ } ) {
+                IconButton(onClick = { /*TODO*/ }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                         contentDescription = "Go to Event"
