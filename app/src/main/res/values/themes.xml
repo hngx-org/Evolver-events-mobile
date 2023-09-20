@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.EventsApp" parent="Theme.Material3.DayNight.NoActionBar">
 
-    <style name="Theme.EventsApp" parent="android:Theme.Material.Light.NoActionBar" />
+    </style>
+
+    <style name="Theme.QuizApp" parent="Theme.EventsApp" />
+
+    <style name="CalenderViewDateCustomText">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlHighlight">@color/black</item>
+        <item name="android:textColor">@drawable/calendar_selector</item>
+    </style>
+    <style name="CustomCalendarMonth" parent="Theme.EventsApp">
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="colorControlActivated">@color/cal_highlight</item>
+    </style>
+
+    <style name="CustomCalendarDay" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CustomCalendarWeek" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>
