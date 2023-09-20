@@ -183,7 +183,6 @@ fun SettingsCard(){
                         }
                     }
                     Spacer(modifier = Modifier.height(10.dp))
-
                     Text(
                         modifier = Modifier.align(Alignment.CenterHorizontally),
                         text = "Share",
@@ -204,7 +203,7 @@ fun SettingsCard(){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BoxScope.ChatBox() {
+fun BoxScope.ChatBox(){
     var chatBoxValue by remember { mutableStateOf(TextFieldValue("")) }
     Row(
         modifier = Modifier
@@ -264,9 +263,14 @@ fun BoxScope.ChatBox() {
 
 @Composable
 fun commentScreen(){
-    LazyColumn(
+    LazyColumn{
 
-    ){
+    }
+}
+
+@Composable
+fun ChatContainer(){
+    Row {
 
     }
 }
