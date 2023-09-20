@@ -29,7 +29,7 @@ object Libs{
     const val compose = "androidx.compose:compose-bom:${Version.compose}"
     const val compose_activity = "androidx.activity:activity-compose:${Version.compose_activity}"
     const val compose_graphics = "androidx.compose.ui:ui-graphics"
-    const val compose_material3 = "androidx.compose.material3:material3"
+    const val compose_material3 = "androidx.compose.material3:material3:1.1.1"
     const val compose_material_icons = "androidx.compose.material:material-icons-extended"
     const val compose_ui = "androidx.compose.ui:ui"
     const val compose_ui_tooling = "androidx.compose.ui:ui-tooling"
