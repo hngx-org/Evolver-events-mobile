@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.evolver.eventsapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         configurations.all {
@@ -17,7 +17,7 @@ android {
         applicationId = "com.evolver.eventsapp"
         minSdk = 27
         //noinspection OldTargetApi
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -56,6 +56,8 @@ android {
 
 dependencies {
 
+
+=======
     /*Standard Dependencies*/
 
     //core
