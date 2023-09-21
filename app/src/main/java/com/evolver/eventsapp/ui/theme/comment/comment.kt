@@ -232,7 +232,11 @@ fun BoxScope.ChatBox(){
                 chatBoxValue = newText
             },
             modifier = Modifier
-                .border(width = 0.5.dp, color = Color.Black, shape = RoundedCornerShape(40.dp),),
+                .border(
+                    width = 0.5.dp,
+                    color = Color.Black,
+                    shape = RoundedCornerShape(40.dp),
+                    ),
             shape = RoundedCornerShape(40.dp),
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.Transparent,
