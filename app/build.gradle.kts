@@ -57,7 +57,6 @@ android {
 dependencies {
 
 
-=======
     /*Standard Dependencies*/
 
     //core
