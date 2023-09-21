@@ -5,10 +5,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -50,7 +48,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.evolver.eventsapp.R
 
 data class Event(
@@ -134,155 +131,12 @@ val events = listOf(
 
     )
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
-@Composable
-fun TimeLineScreen() {
-    var text by remember {
-        mutableStateOf("")
-    }
-    var active by remember {
-        mutableStateOf(false)
-    }
-    var items = remember {
-        mutableStateListOf(
-            "ComicCon",
-            "Lafayette Film Festival"
-        )
-    }
-    val scaffoldState = rememberDrawerState(DrawerValue.Closed)
-    var tabIndex by remember { mutableStateOf(0) }
-
-    val tabs = listOf("Friends", "Everyone")
-
-    val roundedCornerShape = RoundedCornerShape(
-        topStart = 16.dp,
-        topEnd = 16.dp,
-        bottomStart = 0.dp,
-        bottomEnd = 0.dp
-    )
-
-    val background: @Composable (Modifier) -> Modifier = { modifier ->
-        Modifier
-            .background(
-                color = Color.Blue, // Change the color as needed
-                shape = roundedCornerShape
-            )
-            .then(modifier)
-    }
-
-
-    Scaffold(
-        topBar = {},
-        bottomBar = {}
-
-
-    ) {
-        Box(
-            modifier = Modifier
-                .background(Color(0xFF3F3849))
-                .fillMaxHeight()
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                SearchBar(modifier = Modifier.fillMaxWidth(),
-                    query = text,
-                    onQueryChange = { text = it },
-                    onSearch = {
-                        items.add(text)
-                        active = false
-                        text = ""
-                    },
-                    active = active,
-                    onActiveChange = {
-                        active = it
-                    },
-                    placeholder = { Text(text = "Find event", fontSize = 18.sp) },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Find event"
-                        )
-                    },
-                    trailingIcon = {
-                        if (active) {
-                            Icon(
-                                modifier = Modifier.clickable {
-                                    if (text.isNotEmpty()) {
-                                        text = ""
-                                    } else {
-                                        active = false
-                                    }
-
-                                },
-                                imageVector = Icons.Default.Close, contentDescription = "Close"
-                            )
-                        }
-                    }) {
-                    items.forEach {
-                        Row(modifier = Modifier.padding(all = 14.dp)) {
-                            Icon(
-                                modifier = Modifier.padding(end = 10.dp),
-                                imageVector = Icons.Default.History, contentDescription = "History"
-                            )
-                            Text(text = it)
-                        }
-                    }
-                }
-
-                Surface(
-                    shape = RoundedCornerShape(24.dp),
-                    modifier = Modifier
-                        .width(250.dp)
-                        .align(Alignment.CenterHorizontally)
-                        .wrapContentSize()
-                        .padding(top = 16.dp, bottom = 16.dp)
-                ) {
-                    TabRow(
-                        selectedTabIndex = tabIndex,
-                        modifier = Modifier
-                            .background(
-                                color = Color.Blue
-                            )
-                            .wrapContentSize(),
-                    ) {
-                        tabs.forEachIndexed { index, title ->
-                            Tab(text = { Text(title) },
-                                selected = tabIndex == index,
-                                onClick = { tabIndex = index }
-                            )
-                        }
-                    }
-                }
-                when (tabIndex) {
-                    //                0 -> FriendsScreen()
-                    //                1 -> EveryoneScreen()
-                }
-
-                Column {
-                    LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        items(events) { event ->
-                            TimeLineCardItem(event)
-                        }
-                    }
-                }
-
-                Box(modifier = Modifier
-                 .height(896.dp)
-                  .background(color = Color(0xFFFEFDFF)))
-            }
-        }
-    }
-
-
-}
-
 @Composable
 fun TimeLineCardItem(event: Event) {
     Column {
         Card(
             modifier = Modifier
-//                .background(color = Color(0xFFFFC6BC))
+                .background(color = Color(0xFFFFC6BC))
                 .padding(bottom = 16.dp),
             shape = RoundedCornerShape(size = 16.dp)
         ) {
@@ -327,13 +181,138 @@ fun TimeLineCardItem(event: Event) {
                         contentDescription = "Go to Event"
                     )
                 }
-            }
+            } // Row
             HorizontalDivider(
                 modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                 thickness = 1.dp,
                 color = MaterialTheme.colorScheme.onSecondary
             )
+        }// Card
+    } //Column
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true)
+@Composable
+fun TimeLineScreen() {
+    var text by remember {
+        mutableStateOf("")
+    }
+    var active by remember {
+        mutableStateOf(false)
+    }
+    var items = remember {
+        mutableStateListOf(
+            "ComicCon",
+            "Lafayette Film Festival"
+        )
+    }
+    val scaffoldState = rememberDrawerState(DrawerValue.Closed)
+    var tabIndex by remember { mutableStateOf(0) }
+
+    val tabs = listOf("Friends", "Everyone")
+
+    val roundedCornerShape = RoundedCornerShape(
+        topStart = 16.dp,
+        topEnd = 16.dp,
+        bottomStart = 0.dp,
+        bottomEnd = 0.dp
+    )
+
+    val background: @Composable (Modifier) -> Modifier = { modifier ->
+        Modifier
+            .background(
+                color = Color.Blue, // Change the color as needed
+                shape = roundedCornerShape
+            )
+            .then(modifier)
+    }
+    Scaffold(
+        topBar = {},
+        bottomBar = {}
+
+
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            SearchBar(modifier = Modifier.fillMaxWidth(),
+                query = text,
+                onQueryChange = { text = it },
+                onSearch = {
+                    items.add(text)
+                    active = false
+                    text = ""
+                },
+                active = active,
+                onActiveChange = {
+                    active = it
+                },
+                placeholder = { Text(text = "Find event") },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Find event"
+                    )
+                },
+                trailingIcon = {
+                    if (active) {
+                        Icon(
+                            modifier = Modifier.clickable {
+                                if (text.isNotEmpty()) {
+                                    text = ""
+                                } else {
+                                    active = false
+                                }
+
+                            },
+                            imageVector = Icons.Default.Close, contentDescription = "Close"
+                        )
+                    }
+                }) {
+                items.forEach {
+                    Row(modifier = Modifier.padding(all = 14.dp)) {
+                        Icon(
+                            modifier = Modifier.padding(end = 10.dp),
+                            imageVector = Icons.Default.History, contentDescription = "History"
+                        )
+                        Text(text = it)
+                    }
+                }
+            }
+
+            Surface(
+                shape = RoundedCornerShape(24.dp),
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(top = 16.dp, bottom = 16.dp)
+            ) {
+                TabRow(
+                    selectedTabIndex = tabIndex,
+                    modifier = Modifier
+                        .background(
+                            color = Color.Blue
+                        ).wrapContentSize(),
+                ) {
+                    tabs.forEachIndexed { index, title ->
+                        Tab(text = { Text(title) },
+                            selected = tabIndex == index,
+                            onClick = { tabIndex = index }
+                        )
+                    }
+                }
+            }
+            when (tabIndex) {
+//                0 -> FriendsScreen()
+//                1 -> EveryoneScreen()
+            }
+
+            Column {
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    items(events) { event ->
+                        TimeLineCardItem(event)
+                    }
+                }
+            }
         }
     }
 }
-
