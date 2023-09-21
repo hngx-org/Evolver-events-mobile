@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.evolver.eventsapp.ui.theme.EventsAppBottomNav
 import com.evolver.eventsapp.ui.theme.EventsAppTheme
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EventsApp(
