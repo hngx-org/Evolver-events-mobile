@@ -12,7 +12,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.evolver.eventsapp.ui.theme.EventsAppBottomNav
 import com.evolver.eventsapp.ui.theme.EventsAppTheme
 
 
