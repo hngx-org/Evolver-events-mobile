@@ -67,6 +67,7 @@ fun PeopleScreen() {
 
     )
 
+    //TODO : Change the random colors
     val randColors = listOf(
         Color.Red,
         Color.Green,
