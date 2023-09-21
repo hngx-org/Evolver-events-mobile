@@ -3,14 +3,12 @@ package com.evolver.eventsapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.navigation.compose.rememberNavController
+import com.evolver.eventsapp.ui.onboarding.SplashScreen
 import com.evolver.eventsapp.ui.theme.EventsAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +16,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             EventsAppTheme {
-                EventsApp(navController = rememberNavController())
+                var showLandingScreen by remember { mutableStateOf(true) }
+                if (showLandingScreen) {
+                   SplashScreen { showLandingScreen = false }
+                } else {
+                    EventsApp(navController = rememberNavController())
+                }
+
             }
         }
     }
