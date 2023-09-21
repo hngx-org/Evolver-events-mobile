@@ -73,6 +73,7 @@ dependencies {
     implementation(Libs.compose_graphics)
     implementation(Libs.compose_ui)
     implementation(Libs.compose_ui_tooling_preview)
+    implementation(Libs.contraint_ui)
 
     debugImplementation(Libs.compose_ui_tooling)
     androidTestImplementation(platform(Libs.compose))
