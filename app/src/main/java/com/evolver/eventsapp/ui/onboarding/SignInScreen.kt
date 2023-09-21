@@ -24,20 +24,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.evolver.eventsapp.MockNavController
 import com.evolver.eventsapp.R
+import com.evolver.eventsapp.SignInScreen
+import com.evolver.eventsapp.TimelineGraph
 import com.evolver.eventsapp.ui.theme.EventsAppTheme
 
 @Composable
-fun SignInScreen() {
+fun SignInScreen(
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+
+    ) {
     Column(  verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
+        modifier = modifier
             .background(
                 color = Color(0xFF3F3849)
             )
@@ -112,7 +121,13 @@ Spacer(modifier = Modifier.size(height = 70.dp, width = 0.dp))
             ))
 
             Button(
-                onClick = { /* Handle continue with Google */ },
+                onClick = {
+                          /* Handle continue with Google */
+                    navController.navigate(route = TimelineGraph.route){
+                        launchSingleTop = true
+                        popUpTo(SignInScreen.route){inclusive = true}
+                    }
+                          },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFFFFFF)
                 ),
@@ -146,7 +161,13 @@ Spacer(modifier = Modifier.size(height = 70.dp, width = 0.dp))
             }
 
             Button(
-                onClick = { /* Handle continue with Twitter */ },
+                onClick = {
+                          /* Handle continue with Twitter */
+                    navController.navigate(route = TimelineGraph.route){
+                        launchSingleTop = true
+                        popUpTo(SignInScreen.route){inclusive = true}
+                    }
+                          },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFFC6BC)
                 ),
@@ -186,6 +207,6 @@ Spacer(modifier = Modifier.size(height = 70.dp, width = 0.dp))
 @Composable
 fun SigninScreenPreview() {
     EventsAppTheme {
-        SignInScreen()
+        SignInScreen(MockNavController(LocalContext.current))
     }
 }

@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -38,15 +39,32 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.evolver.eventsapp.MockNavController
 import com.evolver.eventsapp.R
+import com.evolver.eventsapp.SignInScreen
+import com.evolver.eventsapp.SplashScreen
 import com.evolver.eventsapp.ui.theme.EventsAppTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen() {
+fun SplashScreen(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+
+    LaunchedEffect(key1 = Unit){
+        delay(2500)
+        navController.navigate(route = SignInScreen.route){
+            launchSingleTop = true
+            popUpTo(SplashScreen.route){inclusive = true}
+        }
+    }
+
    Column(
        verticalArrangement = Arrangement.Top,
-       horizontalAlignment = Alignment.CenterHorizontally
+       horizontalAlignment = Alignment.CenterHorizontally,
+       modifier = modifier.fillMaxSize()
    ) {
       Column {
 
@@ -181,7 +199,7 @@ fun ThreeSmallCircleIndicator() {
                             color = if (i == currentIndex) Color(0xFF3F3849) else Color.Transparent,
                             shape = CircleShape
                         )
-                        .border(width = 2.dp, shape= CircleShape, color = Color(0xFF3F3849))
+                        .border(width = 2.dp, shape = CircleShape, color = Color(0xFF3F3849))
                 )
             }
         }
@@ -198,6 +216,6 @@ fun ThreeSmallCircleIndicator() {
 @Composable
 fun SplashScreenPreview() {
     EventsAppTheme {
-        SplashScreen()
+        SplashScreen(MockNavController(LocalContext.current))
     }
 }
