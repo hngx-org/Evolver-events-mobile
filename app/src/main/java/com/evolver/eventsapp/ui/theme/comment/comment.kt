@@ -194,6 +194,7 @@ fun SettingsCard(){
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
+            commentScreen()
         }
     }
 }
@@ -268,13 +269,11 @@ fun BoxScope.ChatBox(){
 @Composable
 fun commentScreen(){
     LazyColumn{
-
     }
 }
 
 @Composable
 fun ChatContainer(){
     Row {
-
     }
 }
