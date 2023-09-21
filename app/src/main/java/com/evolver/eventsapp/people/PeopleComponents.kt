@@ -69,7 +69,8 @@ fun PeopleAppBar(title : String = "My people",
                  isEventScreen : Boolean,
                  colors : TopAppBarColors,
                  textColor : Color = Color(0xFFF9F9FB) ,
-                 iconTint : Color = Color(0xFFFFFFFF)) {
+                 iconTint : Color = Color(0xFFFFFFFF),
+                 onBackPress: () -> Unit = {}) {
     TopAppBar(
         title = {
         Text(
@@ -115,7 +116,8 @@ fun PeopleAppBar(title : String = "My people",
                     contentDescription = "Menu icon",
                     modifier = Modifier
                         .width(26.dp)
-                        .height(23.dp),
+                        .height(23.dp)
+                        .clickable { onBackPress.invoke() },
                     tint = iconTint
                 )
             }

@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.evolver.eventsapp.model.EventItem
 import com.evolver.eventsapp.people.EventItemComposable
 import com.evolver.eventsapp.people.EventScreenContent
@@ -27,8 +29,7 @@ import com.evolver.eventsapp.people.PeopleAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview
-fun EventScreen() {
+fun EventScreen(navController: NavController = rememberNavController()) {
     val colors = TopAppBarDefaults.mediumTopAppBarColors(
         containerColor = Color(0xFFFFC6BC))
 
@@ -39,7 +40,9 @@ fun EventScreen() {
             title = "Techie",
             colors = colors,
             textColor = Color.Black,
-            iconTint = Color.Black)},
+            iconTint = Color.Black){
+            navController.popBackStack()
+        }},
         modifier = Modifier
 
             .fillMaxSize()
