@@ -29,7 +29,12 @@ fun EventsAppNavHost(
         // TODO : Add your navigation graph as appropriate
 
         composable(route = SplashScreen.route) {
-            SplashScreen(navController)
+            SplashScreen{
+                navController.navigate(route = SignInScreen.route){
+                    launchSingleTop = true
+                    popUpTo(SplashScreen.route){inclusive = true}
+                }
+            }
         }
 
         composable(route = SignInScreen.route) {

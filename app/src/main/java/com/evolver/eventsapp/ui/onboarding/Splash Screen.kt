@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -47,11 +49,13 @@ import com.evolver.eventsapp.ui.theme.EventsAppTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(onContinue: () -> Unit) {
+fun SplashScreen(
+    onContinue: () -> Unit
+) {
    Column(
        verticalArrangement = Arrangement.Top,
        horizontalAlignment = Alignment.CenterHorizontally,
-       modifier = modifier.fillMaxSize()
+       modifier = Modifier.fillMaxSize()
    ) {
       Column {
 
@@ -77,6 +81,7 @@ fun SplashScreen(onContinue: () -> Unit) {
                    modifier = Modifier
                        .width(414.dp)
                        .height(381.dp)
+
                )
                Image(
                    painter = painterResource(R.drawable.splash),
@@ -84,6 +89,7 @@ fun SplashScreen(onContinue: () -> Unit) {
                    modifier = Modifier
                        .width(414.dp)
                        .height(381.dp)
+
 
                )
 
@@ -203,6 +209,6 @@ fun ThreeSmallCircleIndicator() {
 @Composable
 fun SplashScreenPreview() {
     EventsAppTheme {
-        SplashScreen(MockNavController(LocalContext.current))
+        SplashScreen{}
     }
 }
