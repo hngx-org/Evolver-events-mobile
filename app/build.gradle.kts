@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.evolver.eventsapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         configurations.all {
@@ -15,9 +15,9 @@ android {
             }
         }
         applicationId = "com.evolver.eventsapp"
-        minSdk = 27
+        minSdk = 24
         //noinspection OldTargetApi
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -38,8 +38,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
     buildFeatures {
         compose = true
@@ -56,6 +60,7 @@ android {
 
 dependencies {
 
+    
     /*Standard Dependencies*/
 
     //core
@@ -73,7 +78,9 @@ dependencies {
     implementation(Libs.compose_graphics)
     implementation(Libs.compose_ui)
     implementation(Libs.compose_ui_tooling_preview)
-    implementation(Libs.contraint_ui)
+    
+     //Compose Navigation
+    implementation ("androidx.navigation:navigation-compose:2.7.2")
 
     debugImplementation(Libs.compose_ui_tooling)
     androidTestImplementation(platform(Libs.compose))
@@ -92,4 +99,31 @@ dependencies {
     debugImplementation(Libs.compose_ui_test_manifest)
 
     /* Additional Dependencies */
+    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material3:material3")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    //coin
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    // Coroutine Lifecycle Scopes
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    // ViewModel utilities for Compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
 }
