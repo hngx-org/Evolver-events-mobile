@@ -15,7 +15,7 @@ android {
             }
         }
         applicationId = "com.evolver.eventsapp"
-        minSdk = 27
+        minSdk = 24
         //noinspection OldTargetApi
         targetSdk = 34
         versionCode = 1
@@ -38,8 +38,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
     buildFeatures {
         compose = true
@@ -56,8 +60,6 @@ android {
 
 dependencies {
 
-
-=======
     /*Standard Dependencies*/
 
     //core

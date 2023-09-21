@@ -10,10 +10,6 @@ import androidx.compose.ui.unit.sp
 import com.evolver.eventsapp.R
 
 
-val Inter = FontFamily(
-    Font(R.font.inter),
-)
-
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(
@@ -23,39 +19,28 @@ val Typography = Typography(
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
-
     titleLarge = TextStyle(
-        fontFamily = Inter,
-        fontWeight = FontWeight.Normal,
-        fontSize = 24.sp,
-        lineHeight = 36.73.sp,
-        letterSpacing = 0.sp,
-        color = Color(0xFF3F3849)
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 22.sp,
+        lineHeight = 28.sp,
+        letterSpacing = 0.sp
     ),
-
-    titleSmall = TextStyle(
-        fontFamily = Inter,
-        fontSize = 10.sp,
-        lineHeight = 16.sp,
-        fontWeight = FontWeight(700),
-        color = Color(0xFF000000)
-    ),
-
-    bodySmall = TextStyle(
-        fontSize = 14.sp,
+    titleMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
         lineHeight = 24.sp,
-        fontFamily = Inter,
-        fontWeight = FontWeight(500),
-        color = Color(0xFF33313E),
-    )
-
-    /*
-    labelSmall = TextStyle(
-    fontFamily = FontFamily.Default,
-    fontWeight = FontWeight.Medium,
-    fontSize = 11.sp,
-    lineHeight = 16.sp,
-    letterSpacing = 0.5.sp
-    )
-    */
+        letterSpacing = 0.2.sp
+    ),
+    titleSmall = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.1.sp
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = FontFamily.Monospace,
+    ),
 )
