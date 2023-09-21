@@ -67,7 +67,7 @@ fun SettingsScreen() {
                 IconButton(colors = IconButtonDefaults.iconButtonColors() ,
                     onClick = { /*TODO*/ }){
                     Icon(
-                        painter = painterResource(id = R.drawable.menu),
+                        painter = painterResource(id = R.drawable.menur),
                         contentDescription = "Menu Icon",
                         modifier = Modifier.size(24.dp),
                         tint = Color(0xFFF9F9FB)
