@@ -60,6 +60,7 @@ android {
 
 dependencies {
 
+    
     /*Standard Dependencies*/
 
     //core
@@ -77,6 +78,9 @@ dependencies {
     implementation(Libs.compose_graphics)
     implementation(Libs.compose_ui)
     implementation(Libs.compose_ui_tooling_preview)
+    
+     //Compose Navigation
+    implementation ("androidx.navigation:navigation-compose:2.7.2")
 
     debugImplementation(Libs.compose_ui_tooling)
     androidTestImplementation(platform(Libs.compose))
