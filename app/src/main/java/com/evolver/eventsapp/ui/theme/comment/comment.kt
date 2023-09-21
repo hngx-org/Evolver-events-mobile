@@ -29,7 +29,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -67,20 +66,14 @@ fun SettingsCard(){
                 modifier = Modifier
                     .fillMaxWidth()
             ){
-                IconButton(
-                    onClick = {
-//                        val msg = chatBoxValue.text
-//                        if (msg.isBlank()) return@IconButton
-//                        //  onSendChatClickListener(chatBoxValue.text)
-//                        chatBoxValue = TextFieldValue("")
-                    },
-                ) {
                     Image(
-                        painter = painterResource(id = R.drawable.back),
-                        contentDescription = "image",
+                        painter = painterResource(id = R.drawable.back_icon_comment),
+                        contentDescription = "iconn",
                         contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .height(19.22.dp)
+                            .width(23.4.dp)
                     )
-                }
                 Text(
                     text = "11 Comments",
                     fontSize = 24.sp,
@@ -92,7 +85,7 @@ fun SettingsCard(){
                     },
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.menu),
+                        painter = painterResource(id = R.drawable.menu_comment),
                         contentDescription = "image",
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
@@ -115,7 +108,7 @@ fun SettingsCard(){
                         verticalAlignment = Alignment.CenterVertically
                     ){
                         Image(
-                            painter = painterResource(id = R.drawable.settings_image),
+                            painter = painterResource(id = R.drawable.settings_image_comment),
                             contentDescription = "image",
                             contentScale = ContentScale.Fit,
                             modifier = Modifier
@@ -194,7 +187,7 @@ fun SettingsCard(){
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
-            commentScreen()
+            //commentScreen()
         }
     }
 }
@@ -222,7 +215,7 @@ fun BoxScope.ChatBox(){
             },
         ) {
             Image(
-                painter = painterResource(id = R.drawable.image),
+                painter = painterResource(id = R.drawable.image_comment),
                 contentDescription = "image",
                 contentScale = ContentScale.Fit
             )
@@ -258,7 +251,7 @@ fun BoxScope.ChatBox(){
             },
         ) {
             Image(
-                painter = painterResource(id = R.drawable.vn),
+                painter = painterResource(id = R.drawable.vn_comment),
                 contentDescription = "image",
                 contentScale = ContentScale.Fit
             )
