@@ -18,7 +18,7 @@ fun NavGraphBuilder.settingsGraph(
     navigation(startDestination = SettingsScreen.route, route = SettingsGraph.route) {
 
         composable(route = SettingsScreen.route) {
-            Box(modifier = Modifier.fillMaxSize().background(Color.Cyan))
+            com.evolver.eventsapp.ui.settings.SettingsScreen()
         }
     }
 }
