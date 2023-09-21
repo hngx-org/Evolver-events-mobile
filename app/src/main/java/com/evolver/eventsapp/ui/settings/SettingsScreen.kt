@@ -42,9 +42,10 @@ import com.evolver.eventsapp.ui.theme.EventsAppTheme
 @Composable
 fun SettingsScreen() {
     Column {
-        Column(modifier= Modifier
-            .height(603.dp)
-            .background(color = Color(0xFF3F3849))
+        Column(
+            modifier = Modifier
+                .height(603.dp)
+                .background(color = Color(0xFF3F3849))
         ) {
             Row(
                 modifier = Modifier
@@ -64,8 +65,8 @@ fun SettingsScreen() {
                     ),
                     modifier = Modifier.padding(start = 8.dp)
                 )
-                IconButton(colors = IconButtonDefaults.iconButtonColors() ,
-                    onClick = { /*TODO*/ }){
+                IconButton(colors = IconButtonDefaults.iconButtonColors(),
+                    onClick = { /*TODO*/ }) {
                     Icon(
                         painter = painterResource(id = R.drawable.menu),
                         contentDescription = "Menu Icon",
@@ -75,14 +76,33 @@ fun SettingsScreen() {
                 }
             }
             ProfileSection()
-            Column(modifier = Modifier
-                .verticalScroll(rememberScrollState())){
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+            ) {
                 ItemsSection()
                 CutOutSection()
+               Column(modifier = Modifier.background(
+                   color = Color.White
+               )) {
+                    Row(
+                        modifier =
+                        Modifier
+                            .background(
+                                color = Color.White
+                            )
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 4.dp),
+                    ) {
+                        LogoutButton()
+                    }
+                   Spacer(modifier = Modifier.size(height = 80.dp, width = 0.dp))
+                }
+
             }
         }
 
-        LogoutButton()
+
     }
 }
 
@@ -105,13 +125,14 @@ fun ProfileSection() {
                 shape = RoundedCornerShape(10.dp)
             )
             .clickable { }
-        )  {
-            ListItem(modifier = Modifier
-                .height(82.dp)
-                .background(
-                    color = Color(0xFFFFFFFF),
-                    shape = RoundedCornerShape(10.dp)
-                ),
+        ) {
+            ListItem(
+                modifier = Modifier
+                    .height(82.dp)
+                    .background(
+                        color = Color(0xFFFFFFFF),
+                        shape = RoundedCornerShape(10.dp)
+                    ),
                 leadingContent = {
                     Image(
                         painter = painterResource(R.drawable.person_24),
@@ -132,16 +153,18 @@ fun ProfileSection() {
                         )
                     )
                 },
-                supportingText = { Text(
-                    text = "user@example.com",
-                    style = TextStyle(
-                        fontSize = 12.sp,
-                        lineHeight = 16.sp,
-                        fontWeight = FontWeight(700),
-                        color = Color(0xFF84838B),
-                        letterSpacing = 0.3.sp,
+                supportingText = {
+                    Text(
+                        text = "user@example.com",
+                        style = TextStyle(
+                            fontSize = 12.sp,
+                            lineHeight = 16.sp,
+                            fontWeight = FontWeight(700),
+                            color = Color(0xFF84838B),
+                            letterSpacing = 0.3.sp,
+                        )
                     )
-                ) },
+                },
                 trailingContent = {
                     Icon(
                         painter = painterResource(id = R.drawable.arrow_right),
@@ -163,7 +186,7 @@ fun ItemsSection() {
         shape = RoundedCornerShape(10.dp)
 
     ) {
-        Column{
+        Column {
             Item("Notifications", R.drawable.notifications_none_24)
             Item("Privacy", R.drawable.security)
             Item("Appearance", R.drawable.appearance)
@@ -201,7 +224,7 @@ fun Item(text: String, icon: Int) {
         },
         headlineText = {
             Text(
-                text= text,
+                text = text,
                 style = TextStyle(
                     fontSize = 18.sp,
                     lineHeight = 28.sp,
@@ -228,7 +251,7 @@ fun CutOutSection() {
             .padding(16.dp),
         shape = RoundedCornerShape(10.dp)
 
-    )  {
+    ) {
         Column {
             Item("Help and Support", R.drawable.help)
             Item("About", R.drawable.outline)
@@ -240,22 +263,23 @@ fun CutOutSection() {
 fun LogoutButton() {
     Row(
     ) {
-        Button(onClick = { /* Handle logout */ },
+        Button(
+            onClick = { /* Handle logout */ },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
                 contentColor = Color(0xFFEA3131),
             )
         ) {
             Row(
-                verticalAlignment = Alignment.CenterVertically) {
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
                     painter = painterResource(id = R.drawable.logout_left),
                     contentDescription = "Logout Icon"
                 )
                 Spacer(modifier = Modifier.size(width = 4.dp, height = 0.dp))
                 Text(
-                    text= "Logout"
-                    ,
+                    text = "Logout",
                     style = TextStyle(
                         fontSize = 18.sp,
                         lineHeight = 28.sp,
