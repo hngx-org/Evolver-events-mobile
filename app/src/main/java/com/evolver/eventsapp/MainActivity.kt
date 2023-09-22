@@ -21,22 +21,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             EventsAppTheme {
-                var showLandingScreen by remember { mutableStateOf(true) }
-                if (showLandingScreen) {
-                   SplashScreen { showLandingScreen = false }
-                } else {
-                    EventsApp(navController = rememberNavController())
-                }
 
                 EventsApp(navController = rememberNavController())
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val navController = rememberNavController()
-                    EventsApp(navController = navController)
-                }
+
             }
         }
     }
