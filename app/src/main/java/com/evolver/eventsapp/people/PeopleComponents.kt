@@ -69,7 +69,8 @@ fun PeopleAppBar(title : String = "My people",
                  isEventScreen : Boolean,
                  colors : TopAppBarColors,
                  textColor : Color = Color(0xFFF9F9FB) ,
-                 iconTint : Color = Color(0xFFFFFFFF)) {
+                 iconTint : Color = Color(0xFFFFFFFF),
+                 onBackPress: () -> Unit = {}) {
     TopAppBar(
         title = {
         Text(
@@ -115,7 +116,8 @@ fun PeopleAppBar(title : String = "My people",
                     contentDescription = "Menu icon",
                     modifier = Modifier
                         .width(26.dp)
-                        .height(23.dp),
+                        .height(23.dp)
+                        .clickable { onBackPress.invoke() },
                     tint = iconTint
                 )
             }
@@ -187,7 +189,8 @@ fun EventItemComposable(
     peopleViewModel: PeopleViewModel = PeopleViewModel(),
     eventItem: EventItem =
         EventItem(eventDate = "20:01:2020",
-        eventTime = "10:am", eventTitle = "Football", eventVenue = "Old Trafford")
+        eventTime = "10:am", eventTitle = "Football", eventVenue = "Old Trafford"),
+    onCommentClick : () -> Unit = {}
 ) {
 
     Column(modifier = Modifier
@@ -324,7 +327,8 @@ fun EventItemComposable(
                 )
             Spacer(modifier = Modifier.width(24.dp))
 
-           Row(modifier = Modifier.fillMaxWidth(),
+           Row(modifier = Modifier.fillMaxWidth()
+               .clickable { onCommentClick.invoke() },
                verticalAlignment = Alignment.CenterVertically,
                horizontalArrangement = Arrangement.SpaceBetween) {
                Text(
@@ -350,7 +354,8 @@ fun EventItemComposable(
 
 @Composable
 @Preview(showBackground = true)
-fun EventScreenContent( peopleViewModel: PeopleViewModel = viewModel<PeopleViewModel>()) {
+fun EventScreenContent( peopleViewModel: PeopleViewModel = viewModel<PeopleViewModel>(),
+                        gotoCommentScreen : () -> Unit = {}) {
     val eventList = peopleViewModel.eventList.collectAsState()
     val isSearching by peopleViewModel.isSearching.collectAsState()
     Column(modifier = Modifier.padding(24.dp)) {
@@ -358,7 +363,9 @@ fun EventScreenContent( peopleViewModel: PeopleViewModel = viewModel<PeopleViewM
         Spacer(modifier = Modifier.height(16.dp))
         LazyColumn{
             items(eventList.value){
-                EventItemComposable(eventItem = it)
+                EventItemComposable(eventItem = it){
+                    gotoCommentScreen.invoke()
+                }
                 Spacer(modifier = Modifier.height(24.dp))
             }
         }

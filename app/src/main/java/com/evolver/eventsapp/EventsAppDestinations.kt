@@ -8,7 +8,15 @@ interface EventsAppDestination{
     val route:String
 }
 
+object SplashScreen:EventsAppDestination{
+    override val route="splash"
+    // TODO : Add other information for this route e.g any navigation argument needed
+}
 
+object SignInScreen:EventsAppDestination{
+    override val route="signIn"
+    // TODO : Add other information for this route e.g any navigation argument needed
+}
 object TimelineScreen:EventsAppDestination{
     override val route="timeline"
     // TODO : Add other information for this route e.g any navigation argument needed

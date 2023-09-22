@@ -15,7 +15,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class PeopleViewModel: ViewModel() {
-    private val _eventList = MutableStateFlow(events)
+    private val _eventList = MutableStateFlow<List<EventItem>>(
+        value = events
+    )
 
     private val _searchText = MutableStateFlow("")
     val searchText = _searchText.asStateFlow()
@@ -47,6 +49,7 @@ class PeopleViewModel: ViewModel() {
     }
 }
 
+//Static test data
 val events = listOf(
     EventItem("Party","20:02:2020","10a.m","Old Trafford"),
     EventItem("Movie","20:02:2020","10a.m","Old Trafford"),

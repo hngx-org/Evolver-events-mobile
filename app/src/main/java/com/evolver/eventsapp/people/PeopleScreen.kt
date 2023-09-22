@@ -1,6 +1,7 @@
 package com.evolver.eventsapp.people
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -37,43 +39,56 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.evolver.eventsapp.R
+import com.evolver.eventsapp.TimelineGraph
 import com.evolver.eventsapp.model.EventCardItem
 import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
-fun PeopleScreen() {
+fun PeopleScreen(navController: NavController = rememberNavController()) {
     val eventCardItemList = listOf(
         EventCardItem(
             eventPeopleName = "YBNL",
             eventCount = 5,
-            eventIcon = painterResource(id = R.drawable.ic_launcher_foreground)
+            eventIcon = painterResource(id = R.drawable.groupie)
+        ),
+        EventCardItem(
+            eventPeopleName = "ODG",
+            eventCount = 4,
+            eventIcon = painterResource(id = R.drawable.groupie)
+        ),
+        EventCardItem(
+            eventPeopleName = "Evolver",
+            eventCount = 5,
+            eventIcon = painterResource(id = R.drawable.groupie)
         ),
         EventCardItem(
             eventPeopleName = "Death Squad",
             eventCount = 4,
-            eventIcon = painterResource(id = R.drawable.ic_launcher_foreground)
+            eventIcon = painterResource(id = R.drawable.groupie)
         ),
         EventCardItem(
             eventPeopleName = "J Squad",
             eventCount = 2,
-            eventIcon = painterResource(id = R.drawable.ic_launcher_foreground)
+            eventIcon = painterResource(id = R.drawable.groupie)
         )
 
     )
 
     //TODO : Change the random colors
     val randColors = listOf(
-        Color.Red,
-        Color.Green,
-        Color.Blue,
-        Color.Yellow,
-        Color.Magenta
+        Color(0xFAC190FF),
+        Color(0xFF03A9F4),
+        Color(0xFFFFE0C4),
+        Color(0xFFC4FFEA)
     )
 
     val randomColors = remember {
@@ -91,7 +106,8 @@ fun PeopleScreen() {
             Box(modifier = Modifier
                 .fillMaxHeight(0.5f)
                 .fillMaxWidth()
-                .background(Color(0xFF3F3849)))
+                .background(Color(0xFF3F3849))
+                .clip(RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp)))
 
             val state = rememberLazyGridState()
             LazyVerticalGrid(
@@ -104,7 +120,10 @@ fun PeopleScreen() {
                        Modifier
                            .padding(12.dp),
                            contentAlignment = Alignment.Center) {
-                           PeopleEventCard(color = randomColor, eventCardItem = eventItem)
+                           PeopleEventCard(color = randomColor, eventCardItem = eventItem){
+                               //TODO: navigate to event screen
+                               navController.navigate("events")
+                           }
 
                        }
                     }
@@ -122,14 +141,18 @@ fun PeopleScreen() {
 fun PeopleEventCard(
     eventCardItem: EventCardItem ,
     color: Color,
-    eventIcon: ImageVector = Icons.Default.Call) {
+    eventIcon: ImageVector = Icons.Default.Call,
+    onGroupClick : () -> Unit = {}) {
 Column(modifier = Modifier
     .width(176.dp)
     .height(180.dp)
     .background(
         color = color,
         shape = RoundedCornerShape(size = 20.dp)
-    )) {
+    )
+    .clickable {
+        onGroupClick.invoke()
+    }) {
 
     Spacer(modifier = Modifier.height(24.dp))
     Column {
@@ -146,11 +169,11 @@ Column(modifier = Modifier
                     fontFamily = FontFamily(Font(R.font.inter_medium)),
                     fontWeight = FontWeight(700),
                     color = Color(0xFF33313E),
-                )
+                ),
+                overflow = TextOverflow.Ellipsis
             )
 
             Box(contentAlignment = Alignment.Center){
-
                 Icon(imageVector = Icons.Default.Call,
                     contentDescription = "Event Icon",
                     modifier = Modifier.size(22.dp))
@@ -174,8 +197,10 @@ Column(modifier = Modifier
         Icon(painter = eventCardItem.eventIcon,
             contentDescription = "event image",
             modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 10.dp)
-                .size(150.dp))
+                .padding(horizontal = 20.dp,
+                    vertical = 10.dp)
+                .size(150.dp)
+                .background(Color.Transparent))
 
     }
 

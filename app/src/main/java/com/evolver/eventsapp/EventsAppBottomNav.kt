@@ -1,4 +1,4 @@
-package com.evolver.eventsapp.ui.theme
+package com.evolver.eventsapp
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -16,15 +16,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
-import com.evolver.eventsapp.CalendarGraph
-import com.evolver.eventsapp.CalendarScreen
-import com.evolver.eventsapp.MyPeopleGraph
-import com.evolver.eventsapp.MyPeopleScreen
-import com.evolver.eventsapp.R
-import com.evolver.eventsapp.SettingsGraph
-import com.evolver.eventsapp.SettingsScreen
-import com.evolver.eventsapp.TimelineGraph
-import com.evolver.eventsapp.TimelineScreen
+import com.evolver.eventsapp.ui.theme.latoFont
 
 val destinations= listOf(TimelineGraph, MyPeopleGraph, CalendarGraph, SettingsGraph)
 
@@ -34,6 +26,12 @@ fun EventsAppBottomNav(
     currentBackStackEntry : NavBackStackEntry?,
     navController: NavHostController
 ){
+
+    val currentDestination = currentBackStackEntry?.destination
+    val showBottomNav=currentDestination?.route != SplashScreen.route && currentDestination?.route != SignInScreen.route
+
+
+    if (showBottomNav){
         NavigationBar(
             modifier = modifier,
             containerColor = Color.White
@@ -56,31 +54,30 @@ fun EventsAppBottomNav(
                     else -> R.drawable.settings
                 }
 
-                val currentDestination = currentBackStackEntry?.destination
                 val selected = currentDestination?.hierarchy?.any { it.route == eventsAppDestination.route } == true
 
                 NavigationBarItem(
                     selected = selected ,
                     onClick = {
                         // To be replaced by a ViewModel implementation
-                              when(index){
-                                  0 -> navController.navigate(route = TimelineScreen.route){
-                                      launchSingleTop = true
-                                      popUpTo(TimelineScreen.route)
-                                  }
-                                  1 -> navController.navigate(route = MyPeopleScreen.route){
-                                      launchSingleTop = true
-                                      popUpTo(MyPeopleScreen.route)
-                                  }
-                                  2 -> navController.navigate(route = CalendarScreen.route){
-                                      launchSingleTop = true
-                                      popUpTo(CalendarScreen.route)
-                                  }
-                                  else -> navController.navigate(route = SettingsScreen.route){
-                                      launchSingleTop = true
-                                      popUpTo(SettingsScreen.route)
-                                  }
-                              }
+                        when(index){
+                            0 -> navController.navigate(route = TimelineScreen.route){
+                                launchSingleTop = true
+                                popUpTo(TimelineScreen.route)
+                            }
+                            1 -> navController.navigate(route = MyPeopleScreen.route){
+                                launchSingleTop = true
+                                popUpTo(MyPeopleScreen.route)
+                            }
+                            2 -> navController.navigate(route = CalendarScreen.route){
+                                launchSingleTop = true
+                                popUpTo(CalendarScreen.route)
+                            }
+                            else -> navController.navigate(route = SettingsScreen.route){
+                                launchSingleTop = true
+                                popUpTo(SettingsScreen.route)
+                            }
+                        }
                     },
                     icon = { Icon(painter = painterResource(id = iconResId), contentDescription =null )},
                     alwaysShowLabel = true,
@@ -104,6 +101,8 @@ fun EventsAppBottomNav(
 
 
         }
+    }
+
 
 
 
