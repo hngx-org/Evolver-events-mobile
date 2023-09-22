@@ -1,4 +1,4 @@
-package com.evolver.eventsapp.create_events.componets
+package com.evolver.eventsapp.ui.create_events.componets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -42,9 +42,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.evolver.eventsapp.R
-import com.evolver.eventsapp.create_events.util.dateToString
-import com.evolver.eventsapp.create_events.util.longToLocalDate
-import com.evolver.eventsapp.create_events.util.timeToString
+import com.evolver.eventsapp.ui.create_events.util.dateToString
+import com.evolver.eventsapp.ui.create_events.util.longToLocalDate
+import com.evolver.eventsapp.ui.create_events.util.timeToString
 import com.evolver.eventsapp.ui.theme.EventsAppTheme
 import java.time.LocalDate
 import java.time.LocalTime

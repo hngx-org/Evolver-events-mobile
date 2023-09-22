@@ -1,4 +1,4 @@
-package com.evolver.eventsapp.create_events
+package com.evolver.eventsapp.ui.create_events
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

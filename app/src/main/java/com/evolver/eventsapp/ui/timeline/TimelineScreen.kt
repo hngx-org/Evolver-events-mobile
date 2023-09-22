@@ -16,20 +16,23 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -41,16 +44,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.evolver.eventsapp.R
-
-
-
+import com.evolver.eventsapp.ui.theme.EventsAppTheme
 
 
 @Composable
-fun EventCardItem(event: Event) {
+fun EventCardItem() {
     Column {
         Card(
             modifier = Modifier
@@ -94,7 +96,7 @@ fun EventCardItem(event: Event) {
                 }
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(
-                        imageVector = Icons.Default.ArrowForward,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                         contentDescription = "Go to Event"
                     )
                 }
@@ -105,16 +107,17 @@ fun EventCardItem(event: Event) {
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
 @Composable
-fun TimeLineScreen() {
+fun TimeLineScreen(
+    onAddEventClick: () -> Unit,
+) {
     var text by remember {
         mutableStateOf("")
     }
     var active by remember {
         mutableStateOf(false)
     }
-    var items = remember {
+    val items = remember {
         mutableStateListOf(
             "ComicCon",
             "Lafayette Film Festival"
@@ -124,81 +127,117 @@ fun TimeLineScreen() {
 
     val tabs = listOf("Friends", "Everyone")
 
-    Column(modifier = Modifier.padding(16.dp)) {
-        SearchBar(modifier = Modifier.fillMaxWidth(),
-                query = text,
-                onQueryChange = { text = it },
-                onSearch = {
-                    items.add(text)
-                    active = false
-                    text = ""
-                },
-                active = active,
-                onActiveChange = {
-                    active = it
-                },
-                placeholder = { Text(text = "Find event") },
-                leadingIcon = {
-                    Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
-                },
-                trailingIcon = {
-                    if (active) {
-                        Icon(
-                            modifier = Modifier.clickable {
-                                if (text.isNotEmpty()) {
-                                    text = ""
-                                } else {
-                                    active = false
-                                }
-
-                            },
-                            imageVector = Icons.Default.Close, contentDescription = "Close"
-                        )
-                    }
-                }) {
-                items.forEach {
-                    Row(modifier = Modifier.padding(all = 14.dp)) {
-                        Icon(
-                            modifier = Modifier.padding(end = 10.dp),
-                            imageVector = Icons.Default.History, contentDescription = "History"
-                        )
-                        Text(text = it)
-                    }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "") },
+                actions = {
+                    Button(
+                        onClick = onAddEventClick,
+                        content = {
+                            Text(
+                                text = stringResource(id = R.string.create_event),
+                                modifier = Modifier.padding(8.dp)
+                            )
+                        }
+                    )
                 }
-            }
+            )
+        },
+        content = { scaffoldPadding ->
 
-            Surface(
-                shape = RoundedCornerShape(24.dp),
+            Column(
                 modifier = Modifier
-                    .wrapContentSize()
-                    .padding(top = 16.dp, bottom = 16.dp)
+                    .padding(scaffoldPadding)
+                    .padding(16.dp)
             ) {
-                TabRow(
-                    selectedTabIndex = tabIndex,
-                    modifier = Modifier
-                        .background(
-                            color = Color.Blue
-                        )
-                        .wrapContentSize(),
+                SearchBar(
+                    modifier = Modifier.fillMaxWidth(),
+                    query = text,
+                    onQueryChange = { text = it },
+                    onSearch = {
+                        items.add(text)
+                        active = false
+                        text = ""
+                    },
+                    active = active,
+                    onActiveChange = {
+                        active = it
+                    },
+                    placeholder = { Text(text = "Find event") },
+                    leadingIcon = {
+                        Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
+                    },
+                    trailingIcon = {
+                        if (active) {
+                            Icon(
+                                modifier = Modifier.clickable {
+                                    if (text.isNotEmpty()) {
+                                        text = ""
+                                    } else {
+                                        active = false
+                                    }
+                                },
+                                imageVector = Icons.Default.Close,
+                                contentDescription = "Close",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
                 ) {
-                    tabs.forEachIndexed { index, title ->
-                        Tab(text = { Text(title) },
-                            selected = tabIndex == index,
-                            onClick = { tabIndex = index }
-                        )
+                    items.forEach {
+                        Row(modifier = Modifier.padding(all = 14.dp)) {
+                            Icon(
+                                modifier = Modifier.padding(end = 10.dp),
+                                imageVector = Icons.Default.History, contentDescription = "History"
+                            )
+                            Text(text = it)
+                        }
                     }
                 }
-            }
+
+                Surface(
+                    shape = RoundedCornerShape(24.dp),
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(top = 16.dp, bottom = 16.dp)
+                ) {
+                    TabRow(
+                        selectedTabIndex = tabIndex,
+                        modifier = Modifier
+                            .background(
+                                color = Color.Blue
+                            )
+                            .wrapContentSize(),
+                    ) {
+                        tabs.forEachIndexed { index, title ->
+                            Tab(text = { Text(title) },
+                                selected = tabIndex == index,
+                                onClick = { tabIndex = index }
+                            )
+                        }
+                    }
+                }
 
 //            when (tabIndex) {
 //                0 -> FriendsScreen()
 //                1 -> EveryoneScreen()
 //            }
 
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(events) { event ->
-                EventCardItem(event)
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    items(events) { event ->
+                        EventCardItem()
+                    }
+                }
             }
         }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewTimeLineScreen() {
+    EventsAppTheme {
+        TimeLineScreen(onAddEventClick = { })
     }
 }

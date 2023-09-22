@@ -1,4 +1,4 @@
-package com.evolver.eventsapp.create_events.componets
+package com.evolver.eventsapp.ui.create_events.componets
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.evolver.eventsapp.R
-import com.evolver.eventsapp.create_events.EventState
+import com.evolver.eventsapp.ui.create_events.EventState
 
 
 @Composable
