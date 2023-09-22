@@ -1,4 +1,4 @@
-package com.evolver.eventsapp.create_events
+package com.evolver.eventsapp.ui.create_events
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -33,10 +33,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.evolver.eventsapp.R
-import com.evolver.eventsapp.create_events.componets.AdditionalDetail
-import com.evolver.eventsapp.create_events.componets.DurationSection
-import com.evolver.eventsapp.create_events.componets.EventTopBar
-import com.evolver.eventsapp.create_events.componets.LocationScreen
+import com.evolver.eventsapp.ui.create_events.componets.AdditionalDetail
+import com.evolver.eventsapp.ui.create_events.componets.DurationSection
+import com.evolver.eventsapp.ui.create_events.componets.EventTopBar
+import com.evolver.eventsapp.ui.create_events.componets.LocationScreen
 import com.evolver.eventsapp.ui.theme.EventsAppTheme
 import com.evolver.eventsapp.ui.theme.buttonColor
 

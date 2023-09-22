@@ -1,4 +1,4 @@
-package com.evolver.eventsapp.create_events.componets
+package com.evolver.eventsapp.ui.create_events.componets
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

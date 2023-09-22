@@ -1,4 +1,4 @@
-package com.evolver.eventsapp.create_events
+package com.evolver.eventsapp.ui.create_events
 
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember

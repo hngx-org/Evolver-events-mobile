@@ -1,5 +1,6 @@
 package com.evolver.eventsapp
 
+import androidx.compose.runtime.remember
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -13,7 +14,14 @@ fun NavGraphBuilder.timelineGraph(
     navigation(startDestination = TimelineScreen.route, route = TimelineGraph.route) {
 
         composable(route = TimelineScreen.route) {
-            TimeLineScreen()
+
+            val onAddEventClicked = remember {
+                {
+                    navController.navigate(CreateEventGraph.route)
+                }
+            }
+
+            TimeLineScreen(onAddEventClick = onAddEventClicked)
         }
     }
 }

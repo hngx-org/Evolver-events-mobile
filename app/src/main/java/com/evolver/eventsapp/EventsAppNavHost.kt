@@ -13,7 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.evolver.eventsapp.ui.onboarding.SignInScreen
 import com.evolver.eventsapp.ui.onboarding.SplashScreen
-import com.evolver.eventsapp.create_events.createEventGraph
+import com.evolver.eventsapp.ui.create_events.createEventGraph
 
 @Composable
 fun EventsAppNavHost(

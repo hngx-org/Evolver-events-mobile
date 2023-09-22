@@ -1,4 +1,4 @@
-package com.evolver.eventsapp.create_events.componets
+package com.evolver.eventsapp.ui.create_events.componets
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack

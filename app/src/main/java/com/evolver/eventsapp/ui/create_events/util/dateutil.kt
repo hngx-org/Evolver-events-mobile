@@ -1,4 +1,4 @@
-package com.evolver.eventsapp.create_events.util
+package com.evolver.eventsapp.ui.create_events.util
 
 import java.time.Instant
 import java.time.LocalDate
