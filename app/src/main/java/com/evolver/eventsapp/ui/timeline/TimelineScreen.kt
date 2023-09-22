@@ -4,8 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -33,6 +35,8 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -41,10 +45,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.evolver.eventsapp.R
@@ -78,15 +86,20 @@ fun EventCardItem() {
                     Text(
                         modifier = Modifier.fillMaxWidth(.75f),
                         text = "Football Game",
-                        style = MaterialTheme.typography.titleLarge
+                        style = MaterialTheme.typography.titleLarge,
+                        fontFamily = FontFamily(
+                            Font(R.font.inter_bold)
+                        ),
+                        fontWeight = FontWeight(700)
                     )
                     Text(
                         text = "May 20, 2023",
-                        style = MaterialTheme.typography.titleLarge
-                    )
+                        style = MaterialTheme.typography.titleSmall,
+
+                        )
                     Text(
                         text = "Friday 4 - 6 PM",
-                        style = MaterialTheme.typography.titleSmall
+                        style = MaterialTheme.typography.titleMedium
 
                     )
                     Text(
@@ -130,7 +143,7 @@ fun TimeLineScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "") },
+                title = { Text(text = "Timeline", color = Color.White) },
                 actions = {
                     Button(
                         onClick = onAddEventClick,
@@ -141,92 +154,104 @@ fun TimeLineScreen(
                             )
                         }
                     )
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(Color(0xFF3F3849))
             )
         },
         content = { scaffoldPadding ->
 
-            Column(
-                modifier = Modifier
-                    .padding(scaffoldPadding)
-                    .padding(16.dp)
-            ) {
-                SearchBar(
-                    modifier = Modifier.fillMaxWidth(),
-                    query = text,
-                    onQueryChange = { text = it },
-                    onSearch = {
-                        items.add(text)
-                        active = false
-                        text = ""
-                    },
-                    active = active,
-                    onActiveChange = {
-                        active = it
-                    },
-                    placeholder = { Text(text = "Find event") },
-                    leadingIcon = {
-                        Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
-                    },
-                    trailingIcon = {
-                        if (active) {
-                            Icon(
-                                modifier = Modifier.clickable {
-                                    if (text.isNotEmpty()) {
-                                        text = ""
-                                    } else {
-                                        active = false
-                                    }
-                                },
-                                imageVector = Icons.Default.Close,
-                                contentDescription = "Close",
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                        }
-                    }
-                ) {
-                    items.forEach {
-                        Row(modifier = Modifier.padding(all = 14.dp)) {
-                            Icon(
-                                modifier = Modifier.padding(end = 10.dp),
-                                imageVector = Icons.Default.History, contentDescription = "History"
-                            )
-                            Text(text = it)
-                        }
-                    }
-                }
-
-                Surface(
-                    shape = RoundedCornerShape(24.dp),
+            Surface() {
+                Box(
                     modifier = Modifier
-                        .wrapContentSize()
-                        .padding(top = 16.dp, bottom = 16.dp)
+                        .fillMaxHeight(0.5f)
+                        .fillMaxWidth()
+                        .background(Color(0xFF3F3849))
+                        .clip(RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp))
+                )
+
+
+                Column(
+                    modifier = Modifier
+                        .padding(scaffoldPadding)
+                        .padding(16.dp)
                 ) {
-                    TabRow(
-                        selectedTabIndex = tabIndex,
-                        modifier = Modifier
-                            .background(
-                                color = Color.Blue
-                            )
-                            .wrapContentSize(),
+                    SearchBar(
+                        modifier = Modifier.fillMaxWidth(),
+                        query = text,
+                        onQueryChange = { text = it },
+                        onSearch = {
+                            items.add(text)
+                            active = false
+                            text = ""
+                        },
+                        active = active,
+                        onActiveChange = {
+                            active = it
+                        },
+                        placeholder = { Text(text = "Find event") },
+                        leadingIcon = {
+                            Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
+                        },
+                        trailingIcon = {
+                            if (active) {
+                                Icon(
+                                    modifier = Modifier.clickable {
+                                        if (text.isNotEmpty()) {
+                                            text = ""
+                                        } else {
+                                            active = false
+                                        }
+                                    },
+                                    imageVector = Icons.Default.Close,
+                                    contentDescription = "Close",
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        }
                     ) {
-                        tabs.forEachIndexed { index, title ->
-                            Tab(text = { Text(title) },
-                                selected = tabIndex == index,
-                                onClick = { tabIndex = index }
-                            )
+                        items.forEach {
+                            Row(modifier = Modifier.padding(all = 14.dp)) {
+                                Icon(
+                                    modifier = Modifier.padding(end = 10.dp),
+                                    imageVector = Icons.Default.History,
+                                    contentDescription = "History"
+                                )
+                                Text(text = it)
+                            }
                         }
                     }
-                }
 
-//            when (tabIndex) {
-//                0 -> FriendsScreen()
-//                1 -> EveryoneScreen()
-//            }
+                    Surface(
+                        shape = RoundedCornerShape(24.dp),
+                        modifier = Modifier
+                            .width(250.dp)
+                            .padding(top = 16.dp, bottom = 16.dp),
+                    ) {
+                        TabRow(
+                            selectedTabIndex = tabIndex,
+                            modifier = Modifier
+                                .background(
+                                    color = Color.Blue
+                                ),
+                        ) {
+                            tabs.forEachIndexed { index, title ->
+                                Tab(text = { Text(title) },
+                                    selected = tabIndex == index,
+                                    onClick = { tabIndex = index }
+                                )
+                            }
+                        }
+                    }
 
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(events) { event ->
-                        EventCardItem()
+                    //            when (tabIndex) {
+                    //                0 -> FriendsScreen()
+                    //                1 -> EveryoneScreen()
+                    //            }
+
+                    LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(events) { event ->
+                            EventCardItem()
+                        }
                     }
                 }
             }
