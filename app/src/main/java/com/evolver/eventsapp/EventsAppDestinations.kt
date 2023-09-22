@@ -37,6 +37,11 @@ object SettingsScreen:EventsAppDestination{
     // TODO : Add other information for this route e.g any navigation argument needed
 }
 
+object CreateEventScreen:EventsAppDestination{
+    override val route="createEvents"
+    // TODO : Add other information for this route e.g any navigation argument needed
+}
+
 object TimelineGraph:EventsAppDestination{
     override val route="timelineGraph"
 }
@@ -51,4 +56,8 @@ object CalendarGraph:EventsAppDestination{
 
 object SettingsGraph:EventsAppDestination{
     override val route="settingsGraph"
+}
+
+object CreateEventGraph:EventsAppDestination{
+    override val route="createEventGraph"
 }
