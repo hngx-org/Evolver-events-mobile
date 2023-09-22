@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.evolver.eventsapp"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -32,6 +32,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -69,4 +70,14 @@ dependencies {
 
     //Compose Navigation
     implementation ("androidx.navigation:navigation-compose:2.7.2")
+
+    // Material3
+    implementation ("androidx.compose.material3:material3:1.2.0-alpha07")
+    implementation("androidx.compose.material:material-icons-extended")
+
+    // For using modern java 8 classes with older versions of android
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+
+    //Viewmodel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 }

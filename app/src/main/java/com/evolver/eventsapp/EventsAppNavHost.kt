@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.evolver.eventsapp.create_events.createEventGraph
 
 @Composable
 fun EventsAppNavHost(
@@ -20,8 +21,10 @@ fun EventsAppNavHost(
     ){
         // TODO : Add your navigation graph as appropriate
         timelineGraph(navController)
+        createEventGraph(navController)
         myPeopleGraph(navController)
         calendarGraph(navController)
         settingsGraph(navController)
+
     }
 }

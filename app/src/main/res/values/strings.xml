@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">EventsApp</string>
+    <string name="create_event">Create Event</string>
+    <string name="on_back">Back Arrow</string>
+    <string name="txt_desc">Event Description</string>
+    <string name="edit_desc">Type Event Description</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="event_time">Event Duration</string>
+    <string name="starts">Starts</string>
+    <string name="ends">Ends</string>
+    <string name="location">Add Location</string>
+    <string name="sel_groups">Select groups</string>
+    <string name="add_location">Event Location</string>
 </resources>
