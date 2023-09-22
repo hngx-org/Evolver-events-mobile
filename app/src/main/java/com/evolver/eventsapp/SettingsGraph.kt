@@ -14,7 +14,7 @@ fun NavGraphBuilder.settingsGraph(
     navigation(startDestination = SettingsScreen.route, route = SettingsGraph.route) {
 
         composable(route = SettingsScreen.route) {
-            CommentPage()
+            SettingsScreen()
         }
     }
 }

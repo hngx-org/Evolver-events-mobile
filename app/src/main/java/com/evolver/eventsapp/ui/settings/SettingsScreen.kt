@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -41,10 +42,9 @@ import com.evolver.eventsapp.ui.theme.EventsAppTheme
 
 @Composable
 fun SettingsScreen() {
-    Column {
+    Column(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
-                .height(603.dp)
                 .background(color = Color(0xFF3F3849))
         ) {
             Row(

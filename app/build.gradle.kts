@@ -74,10 +74,8 @@ dependencies {
     //Compose Navigation
     implementation ("androidx.navigation:navigation-compose:2.7.3")
 
-    implementation ("androidx.navigation:navigation-compose:2.7.2")
-
     // Material3
-    implementation ("androidx.compose.material3:material3:1.2.0-alpha07")
+    implementation ("androidx.compose.material3:material3:1.2.0-alpha08")
     implementation("androidx.compose.material:material-icons-extended")
 
     // For using modern java 8 classes with older versions of android
