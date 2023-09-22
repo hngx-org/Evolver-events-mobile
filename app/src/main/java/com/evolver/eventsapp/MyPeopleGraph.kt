@@ -10,6 +10,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.evolver.eventsapp.event.EventScreen
+import com.evolver.eventsapp.people.PeopleScreen
 
 fun NavGraphBuilder.myPeopleGraph(
     navController: NavHostController,
@@ -18,7 +20,10 @@ fun NavGraphBuilder.myPeopleGraph(
     navigation(startDestination = MyPeopleScreen.route, route = MyPeopleGraph.route) {
 
         composable(route = MyPeopleScreen.route) {
-            Box(modifier = Modifier.fillMaxSize().background(Color.Yellow))
+           PeopleScreen(navController)
+        }
+        composable(route = "events") {
+            EventScreen(navController)
         }
     }
 }
