@@ -126,6 +126,7 @@ fun ProfileSection() {
             )
             .clickable { }
         ) {
+
             ListItem(
                 modifier = Modifier
                     .height(82.dp)
@@ -142,7 +143,7 @@ fun ProfileSection() {
                             .clip(CircleShape)
                     )
                 },
-                headlineText = {
+                headlineContent = {
                     Text(
                         text = "User Name",
                         style = TextStyle(
@@ -153,7 +154,7 @@ fun ProfileSection() {
                         )
                     )
                 },
-                supportingText = {
+                supportingContent = {
                     Text(
                         text = "user@example.com",
                         style = TextStyle(
@@ -222,7 +223,7 @@ fun Item(text: String, icon: Int) {
                     .clip(CircleShape)
             )
         },
-        headlineText = {
+        headlineContent = {
             Text(
                 text = text,
                 style = TextStyle(
@@ -241,6 +242,7 @@ fun Item(text: String, icon: Int) {
         },
         colors = ListItemDefaults.colors(containerColor = backgroundColor)
     )
+
 }
 
 @Composable
