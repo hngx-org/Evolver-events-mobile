@@ -26,7 +26,7 @@ fun NavGraphBuilder.myPeopleGraph(
             EventScreen(navController)
         }
         composable(route = "comment_screen") {
-            //TODO : ADD COMMENT SCREEN HERE
+           CommentPage()
         }
     }
 }
