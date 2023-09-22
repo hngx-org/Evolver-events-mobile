@@ -57,7 +57,7 @@ fun EventScreen(navController: NavController = rememberNavController()) {
             )
             Spacer(modifier = Modifier.height(6.dp))
             EventScreenContent(){
-//                navController.navigate("comment_screen")
+                navController.navigate("comment_screen")
                 //TODO : NAVIGATE TO COMMENT PAGE
             }
         }

@@ -44,7 +44,7 @@ import com.evolver.eventsapp.R
 
 @Composable
 @Preview(showBackground = true)
-fun SettingsScreen(){
+fun CommentPage(){
     Box(modifier = Modifier
         .fillMaxSize()
     ){
