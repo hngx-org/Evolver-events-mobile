@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.evolver.eventsapp.commentScreen
 import com.evolver.eventsapp.model.EventItem
 import com.evolver.eventsapp.people.EventItemComposable
 import com.evolver.eventsapp.people.EventScreenContent
@@ -55,7 +56,10 @@ fun EventScreen(navController: NavController = rememberNavController()) {
                     .background(color = Color(0xFFFFC6BC))
             )
             Spacer(modifier = Modifier.height(6.dp))
-            EventScreenContent()
+            EventScreenContent(){
+//                navController.navigate("comment_screen")
+                //TODO : NAVIGATE TO COMMENT PAGE
+            }
         }
     }
 }
