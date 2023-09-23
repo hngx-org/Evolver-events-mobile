@@ -1,5 +1,6 @@
 package com.evolver.eventsapp.event
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,15 +12,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.evolver.eventsapp.commentScreen
@@ -27,12 +33,37 @@ import com.evolver.eventsapp.model.EventItem
 import com.evolver.eventsapp.people.EventItemComposable
 import com.evolver.eventsapp.people.EventScreenContent
 import com.evolver.eventsapp.people.PeopleAppBar
+import com.evolver.eventsapp.utils.Resource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EventScreen(navController: NavController = rememberNavController()) {
     val colors = TopAppBarDefaults.mediumTopAppBarColors(
         containerColor = Color(0xFFFFC6BC))
+    val eventsViewModel : EventsViewModel = hiltViewModel()
+    val eventResource by eventsViewModel.event.observeAsState()
+
+    LaunchedEffect(key1 = true){
+        eventsViewModel.getEvents()
+    }
+
+    when (eventResource){
+        is Resource.Error -> {}
+        is Resource.Failure -> {}
+        is Resource.Loading -> {
+            Log.d("Test event data", "EventScreen: loadingggg")
+            CircularProgressIndicator()
+        }
+        is Resource.Success -> {
+            val eventData = (eventResource as Resource.Success).data
+            eventData!!.data.forEach {
+                Log.d("Test event data", "EventScreen: ${it.description}")
+            }
+
+        }
+        is Resource.Timeout -> {}
+        null -> {}
+    }
 
     Scaffold(
         topBar = { PeopleAppBar(
