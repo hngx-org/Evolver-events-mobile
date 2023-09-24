@@ -17,7 +17,6 @@ fun Long.longToLocalDate(): LocalDate {
 }
 
 fun LocalTime.timeToString(): String {
-    val hour = this.hour.toString().padStart(2, '0')
-    val minute = this.minute.toString().padStart(2, '0')
-    return "$hour:$minute"
+    val formatter = DateTimeFormatter.ofPattern("hh:mm a")
+    return this.format(formatter)
 }
