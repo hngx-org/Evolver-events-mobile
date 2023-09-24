@@ -11,15 +11,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -31,6 +29,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,14 +37,12 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
-import androidx.compose.material3.TopAppBarDefaults
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -60,7 +57,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.evolver.eventsapp.R
+import com.evolver.eventsapp.model.Event
 import com.evolver.eventsapp.model.EventItem
+import com.evolver.eventsapp.model.EventsData
+import com.evolver.eventsapp.utils.Resource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -184,12 +184,7 @@ fun SearchEvent(peopleViewModel: PeopleViewModel = viewModel<PeopleViewModel>())
 }
 
 @Composable
-@Preview(showBackground = true)
-fun EventItemComposable(
-    peopleViewModel: PeopleViewModel = PeopleViewModel(),
-    eventItem: EventItem =
-        EventItem(eventDate = "20:01:2020",
-        eventTime = "10:am", eventTitle = "Football", eventVenue = "Old Trafford"),
+fun EventItemComposable(event:Event,
     onCommentClick : () -> Unit = {}
 ) {
 
@@ -224,7 +219,7 @@ fun EventItemComposable(
                 Column(modifier = Modifier.fillMaxHeight(),
                     verticalArrangement = Arrangement.Center) {
                     Text(
-                        text = eventItem.eventTitle,
+                        text = "${event.title}",
                         style = TextStyle(
                             fontSize = 24.sp,
                             lineHeight = 36.73.sp,
@@ -235,7 +230,7 @@ fun EventItemComposable(
                     )
 
                     Text(
-                        text = eventItem.eventDate,
+                        text = "${event.start_date}",
                         style = TextStyle(
                             fontSize = 20.sp,
                             lineHeight = 36.73.sp,
@@ -247,7 +242,7 @@ fun EventItemComposable(
 
 
                     Text(
-                        text = eventItem.eventTime,
+                        text = "${event.start_time}",
                         style = TextStyle(
                             fontSize = 10.sp,
                             lineHeight = 16.sp,
@@ -259,7 +254,7 @@ fun EventItemComposable(
                     )
 
                     Text(
-                        text = eventItem.eventVenue,
+                        text = "${event.location}",
                         style = TextStyle(
                             fontSize = 10.sp,
                             lineHeight = 16.sp,
@@ -327,7 +322,8 @@ fun EventItemComposable(
                 )
             Spacer(modifier = Modifier.width(24.dp))
 
-           Row(modifier = Modifier.fillMaxWidth()
+           Row(modifier = Modifier
+               .fillMaxWidth()
                .clickable { onCommentClick.invoke() },
                verticalAlignment = Alignment.CenterVertically,
                horizontalArrangement = Arrangement.SpaceBetween) {
@@ -353,23 +349,26 @@ fun EventItemComposable(
 }
 
 @Composable
-@Preview(showBackground = true)
-fun EventScreenContent( peopleViewModel: PeopleViewModel = viewModel<PeopleViewModel>(),
-                        gotoCommentScreen : () -> Unit = {}) {
-    val eventList = peopleViewModel.eventList.collectAsState()
-    val isSearching by peopleViewModel.isSearching.collectAsState()
+fun EventScreenContent(eventList: Resource<EventsData>?,
+                       gotoCommentScreen : () -> Unit = {}) {
+
+   //val eventList = eventViewModel.getEventsList()
+//    val isSearching by peopleViewModel.isSearching.collectAsState()
     Column(modifier = Modifier.padding(24.dp)) {
         SearchEvent()
         Spacer(modifier = Modifier.height(16.dp))
-        LazyColumn{
-            items(eventList.value){
-                EventItemComposable(eventItem = it){
-                    gotoCommentScreen.invoke()
-                }
+        if (eventList?.data?.data.isNullOrEmpty()) {
+            CircularProgressIndicator()
+        } else {
+            LazyColumn {
+                itemsIndexed(eventList?.data!!.data) {
+                    index, item ->EventItemComposable(eventList.data.data[index]){
+                gotoCommentScreen.invoke()
+            }
                 Spacer(modifier = Modifier.height(24.dp))
+
+                }
             }
         }
     }
-
-
 }
