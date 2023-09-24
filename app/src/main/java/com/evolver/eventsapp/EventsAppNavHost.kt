@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.evolver.eventsapp.auth.AuthScreen
 import com.evolver.eventsapp.ui.onboarding.SignInScreen
 import com.evolver.eventsapp.ui.onboarding.SplashScreen
 import com.evolver.eventsapp.ui.create_events.createEventGraph
@@ -39,7 +40,8 @@ fun EventsAppNavHost(
         }
 
         composable(route = SignInScreen.route) {
-            SignInScreen(navController)
+          //  SignInScreen(navController)
+            AuthScreen(navController)
         }
 
         timelineGraph(navController)

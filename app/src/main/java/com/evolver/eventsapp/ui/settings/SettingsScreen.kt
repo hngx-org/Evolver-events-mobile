@@ -1,5 +1,6 @@
 package com.evolver.eventsapp.ui.settings
 
+import android.app.Application
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,26 +28,39 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.evolver.eventsapp.R
+import com.evolver.eventsapp.SignInScreen
+import com.evolver.eventsapp.SplashScreen
+import com.evolver.eventsapp.TimelineGraph
+import com.evolver.eventsapp.auth.SignInGoogleViewModel
+import com.evolver.eventsapp.auth.SignInGoogleViewModelFactory
 import com.evolver.eventsapp.ui.theme.EventsAppTheme
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(
+    navController: NavController
+) {
     Column(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .background(color = Color(0xFF3F3849))
         ) {
+
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -94,7 +108,11 @@ fun SettingsScreen() {
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp, vertical = 4.dp),
                     ) {
-                        LogoutButton()
+                        LogoutButton{
+                            navController.navigate(route = SplashScreen.route){
+                                launchSingleTop = true
+                            }
+                        }
                     }
                    Spacer(modifier = Modifier.size(height = 80.dp, width = 0.dp))
                 }
@@ -109,6 +127,13 @@ fun SettingsScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileSection() {
+    val context = LocalContext.current
+    val mSignInViewModel: SignInGoogleViewModel = viewModel(
+        factory = SignInGoogleViewModelFactory(context.applicationContext as Application)
+    )
+
+    val state = mSignInViewModel.googleUser.observeAsState()
+    val user = state.value
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -145,7 +170,7 @@ fun ProfileSection() {
                 },
                 headlineContent = {
                     Text(
-                        text = "User Name",
+                        text = if (user?.name?.isEmpty() == true) "User Name" else user?.name!!,
                         style = TextStyle(
                             fontSize = 24.sp,
                             lineHeight = 22.sp,
@@ -156,7 +181,7 @@ fun ProfileSection() {
                 },
                 supportingContent = {
                     Text(
-                        text = "user@example.com",
+                        text = if(user?.email?.isEmpty() ==true) "user@example.com" else user?.email!!,
                         style = TextStyle(
                             fontSize = 12.sp,
                             lineHeight = 16.sp,
@@ -262,11 +287,11 @@ fun CutOutSection() {
 }
 
 @Composable
-fun LogoutButton() {
+fun LogoutButton(onClick:() -> Unit) {
     Row(
     ) {
         Button(
-            onClick = { /* Handle logout */ },
+            onClick = { onClick() },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
                 contentColor = Color(0xFFEA3131),
@@ -298,6 +323,6 @@ fun LogoutButton() {
 @Composable
 fun GreetingPreview() {
     EventsAppTheme {
-        SettingsScreen()
+        SettingsScreen(navController = NavController(LocalContext.current))
     }
 }
