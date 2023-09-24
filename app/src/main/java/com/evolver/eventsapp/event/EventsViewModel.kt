@@ -24,7 +24,7 @@ class EventsViewModel @Inject constructor(private val repository: EventRepositor
         }
     }
 
-    fun getEvents() = viewModelScope.launch {
+    fun getEventsList() = viewModelScope.launch {
         _event.postValue(Resource.Loading())
         _event.postValue(Resource.Success(data = repository.getEvents().data!!.body()!!))
     }
