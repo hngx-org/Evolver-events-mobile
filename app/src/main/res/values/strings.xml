@@ -14,4 +14,7 @@
     <string name="location">Add Location</string>
     <string name="sel_groups">Select groups</string>
     <string name="add_location">Event Location</string>
+    <string name="on_next">Next</string>
+    <string name="calendar">Calendar</string>
+    <string name="find_event">Find Event</string>
 </resources>
