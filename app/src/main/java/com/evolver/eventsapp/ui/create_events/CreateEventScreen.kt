@@ -4,29 +4,43 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Groups
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuDefaults.outlinedTextFieldColors
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -41,6 +55,7 @@ import com.evolver.eventsapp.ui.theme.EventsAppTheme
 import com.evolver.eventsapp.ui.theme.buttonColor
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateEvent(
     onBack: () -> Unit,
@@ -55,65 +70,82 @@ fun CreateEvent(
 
     val keyBoard = LocalSoftwareKeyboardController.current
 
-    Scaffold(
-        modifier = Modifier,
-        topBar = { EventTopBar(onBack = onBack) },
-        content = { scaffoldPadding ->
+        Surface(
+            modifier = Modifier
+                .fillMaxSize(),
+            color= Color(0xFF3F3849)
+        ) {
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
-                    .padding(12.dp)
-                    .background(MaterialTheme.colorScheme.primary),
-                verticalArrangement = Arrangement.SpaceEvenly,
-                content = {
-                    ElevatedCard(
-                        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 8.dp),
-                        content = {
-                            Column(
-                                modifier = Modifier.padding(scaffoldPadding),
-                                verticalArrangement = Arrangement.SpaceEvenly,
-                                content = {
-                                    Text(
-                                        text = stringResource(id = R.string.txt_desc),
-                                        modifier = Modifier.padding(8.dp),
-                                        style = MaterialTheme.typography.titleSmall
-                                    )
-                                    OutlinedTextField(
-                                        value = state.eventDescription,
-                                        onValueChange = { updateState(state.copy(eventDescription = it)) },
-                                        placeholder = {
-                                            Text(
-                                                text = stringResource(id = R.string.edit_desc),
-                                                style = MaterialTheme.typography.bodyMedium
+                    .padding(top = 10.dp, start = 16.dp, end = 16.dp, bottom = 24.dp),
+                verticalArrangement = Arrangement.SpaceBetween,
+            ){
+
+                ElevatedCard(
+                    elevation = CardDefaults.elevatedCardElevation(defaultElevation = 8.dp),
+                    content = {
+                        Column(
+                            //    modifier = Modifier.padding(scaffoldPadding),
+                            verticalArrangement = Arrangement.SpaceEvenly,
+                        ){
+                            CenterAlignedTopAppBar(
+                                title = { Text(text = stringResource(id = R.string.create_event), style = MaterialTheme.typography.titleLarge) },
+                                navigationIcon = {
+                                    IconButton(
+                                        onClick = { onBack() },
+                                        content = {
+                                            Icon(
+                                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                                contentDescription = stringResource(id = R.string.on_back),
                                             )
-                                        },
-                                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                                        keyboardActions = KeyboardActions(
-                                            onDone = { keyBoard?.hide() }),
-                                        singleLine = false,
-                                        modifier = Modifier
-                                            .padding(8.dp)
-                                            .fillMaxWidth()
-                                    )
-                                    DurationSection(
-                                        durationTitle = stringResource(id = R.string.starts),
-                                        durationDate = state.startDate,
-                                        onDateChanged = { updateState(state.copy(startDate = it)) },
-                                        durationTime = state.startTime,
-                                        onTimeChanged = { updateState(state.copy(startTime = it)) }
-                                    )
-                                    DurationSection(
-                                        durationTitle = stringResource(id = R.string.ends),
-                                        durationDate = state.endDate,
-                                        onDateChanged = { updateState(state.copy(endDate = it)) },
-                                        durationTime = state.endTime,
-                                        onTimeChanged = { updateState(state.copy(endTime = it)) },
+                                        }
                                     )
                                 }
                             )
+                            Text(
+                                text = stringResource(id = R.string.txt_desc),
+                                modifier = Modifier.padding(8.dp),
+                                style = MaterialTheme.typography.titleSmall
+                            )
+                            OutlinedTextField(
+                                value = state.eventDescription,
+                                onValueChange = { updateState(state.copy(eventDescription = it)) },
+                                placeholder = {
+                                    Text(
+                                        text = stringResource(id = R.string.edit_desc),
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                },
+                                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                                keyboardActions = KeyboardActions(
+                                    onDone = { keyBoard?.hide() }),
+                                singleLine = false,
+                                shape = RoundedCornerShape(9.dp),
+                                modifier = Modifier
+                                    .height(122.dp)
+                                    .padding(8.dp)
+                                    .fillMaxWidth(),
+                            )
+                            DurationSection(
+                                durationTitle = stringResource(id = R.string.starts),
+                                durationDate = state.startDate,
+                                onDateChanged = { updateState(state.copy(startDate = it)) },
+                                durationTime = state.startTime,
+                                onTimeChanged = { updateState(state.copy(startTime = it)) }
+                            )
+                            DurationSection(
+                                durationTitle = stringResource(id = R.string.ends),
+                                durationDate = state.endDate,
+                                onDateChanged = { updateState(state.copy(endDate = it)) },
+                                durationTime = state.endTime,
+                                onTimeChanged = { updateState(state.copy(endTime = it)) },
+                            )
                         }
-                    )
+                    }
+                )
 
+                Column(){
                     AdditionalDetail(
                         icon = Icons.Default.LocationOn,
                         title = stringResource(id = R.string.location),
@@ -126,25 +158,25 @@ fun CreateEvent(
                         title = stringResource(id = R.string.sel_groups),
                         onDetailClick = onGroupsClick
                     )
-
-                    Button(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = buttonColor,
-                            contentColor = MaterialTheme.colorScheme.onSurface
-                        ),
-                        onClick = { onCreateEvent() },
-                        content = {
-                            Text(
-                                text = stringResource(id = R.string.create_event),
-                                style = MaterialTheme.typography.titleLarge,
-                            )
-                        }
-                    )
                 }
-            )
+
+                Button(
+                    modifier = Modifier
+                        .height(72.32.dp)
+                        .fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = buttonColor,
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    ),
+                    onClick = { onCreateEvent() },
+                    content = {
+                        Text(
+                            text = stringResource(id = R.string.create_event),
+                            style = MaterialTheme.typography.titleLarge,
+                        )
+                    }
+                )
+            }
             AnimatedVisibility(visible = showLocationDialog) {
                 LocationScreen(
                     state = state,
@@ -153,7 +185,7 @@ fun CreateEvent(
                 )
             }
         }
-    )
+
 }
 
 
