@@ -24,7 +24,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             EventsAppTheme {
 
-
                 EventsApp(navController = rememberNavController())
 
             }
