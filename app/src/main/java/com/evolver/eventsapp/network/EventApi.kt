@@ -1,5 +1,6 @@
 package com.evolver.eventsapp.network
 
+import com.evolver.eventsapp.model.CreateEventsData
 import com.evolver.eventsapp.model.EventsData
 import retrofit2.Response
 import retrofit2.http.Body
@@ -12,5 +13,5 @@ interface EventApi {
         suspend fun getEvents() : Response<EventsData>
 
         @POST(value = "api/events")
-        suspend fun postEvent( @Body eventsData: EventsData): Response<EventsData>
+        suspend fun postEvent( @Body createEventsData: CreateEventsData): Response<CreateEventsData>
 }
