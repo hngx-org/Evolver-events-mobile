@@ -21,13 +21,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.evolver.eventsapp.R
-import com.evolver.eventsapp.ui.create_events.EventState
+import com.evolver.eventsapp.ui.create_events.EventEntity
 
 
 @Composable
 fun LocationScreen(
-    state: EventState,
-    updateState: (EventState) -> Unit,
+    state: EventEntity,
+    updateState: (EventEntity) -> Unit,
     onShowDialog: () -> Unit
 ) {
 
@@ -48,9 +48,9 @@ fun LocationScreen(
                         )
                         Spacer(modifier = Modifier.height(10.dp))
                         OutlinedTextField(
-                            value = state.eventLocation,
+                            value = state.location,
                             onValueChange = {
-                                updateState(state.copy(eventLocation = it))
+                                updateState(state.copy(location = it))
                             },
                             singleLine = true,
                             label = { Text(text = stringResource(id = R.string.add_location)) }
