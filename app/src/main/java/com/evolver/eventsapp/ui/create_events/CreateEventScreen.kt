@@ -1,5 +1,6 @@
 package com.evolver.eventsapp.ui.create_events
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -39,6 +40,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -199,6 +201,9 @@ fun CreateEvent(
                     if (state.isLoading) CircularProgressIndicator()
                 }
             )
+            if (state.serverError.isNotEmpty()) {
+                Toast.makeText(LocalContext.current, state.serverError, Toast.LENGTH_LONG).show()
+            }
         }
         AnimatedVisibility(visible = showLocationDialog) {
             LocationScreen(

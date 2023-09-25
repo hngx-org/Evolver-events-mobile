@@ -5,3 +5,9 @@ data class EventsData(
     val message: String,
     val status: String
 )
+
+data class CreateEventsData(
+    val data: Event,
+    val message: String,
+    val status: String
+)
