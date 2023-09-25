@@ -17,4 +17,6 @@
     <string name="on_next">Next</string>
     <string name="calendar">Calendar</string>
     <string name="find_event">Find Event</string>
+    <string name="txt_title">Event Title</string>
+    <string name="success">Successfully Created Event</string>
 </resources>
