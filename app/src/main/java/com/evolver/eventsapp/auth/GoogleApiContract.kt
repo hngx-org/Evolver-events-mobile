@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.compose.ui.platform.LocalContext
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -19,6 +20,7 @@ class GoogleApiContract : ActivityResultContract<Int, Task<GoogleSignInAccount>?
         val intent = GoogleSignIn.getClient(context, gso)
         return intent.signInIntent
     }
+
 
     override fun parseResult(resultCode: Int, intent: Intent?): Task<GoogleSignInAccount>? {
         return when (resultCode) {
