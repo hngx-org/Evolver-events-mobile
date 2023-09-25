@@ -7,7 +7,7 @@ data class EventsData(
 )
 
 data class CreateEventsData(
-    val data: Event,
-    val message: String,
+    val data: List<Event>,
+    val msg: String,
     val status: String
 )
