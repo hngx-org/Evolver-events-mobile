@@ -49,11 +49,14 @@ import com.evolver.eventsapp.TimelineGraph
 import com.evolver.eventsapp.auth.SignInGoogleViewModel
 import com.evolver.eventsapp.auth.SignInGoogleViewModelFactory
 import com.evolver.eventsapp.ui.theme.EventsAppTheme
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 @Composable
 fun SettingsScreen(
     navController: NavController
 ) {
+    val localContext = LocalContext.current
     Column(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -96,9 +99,11 @@ fun SettingsScreen(
             ) {
                 ItemsSection()
                 CutOutSection()
-               Column(modifier = Modifier.background(
-                   color = Color.White
-               )) {
+                Column(
+                    modifier = Modifier.background(
+                        color = Color.White
+                    )
+                ) {
                     Row(
                         modifier =
                         Modifier
@@ -108,13 +113,20 @@ fun SettingsScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp, vertical = 4.dp),
                     ) {
-                        LogoutButton{
-                            navController.navigate(route = SplashScreen.route){
+                        LogoutButton {
+                            val gso =
+                                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                                    .requestIdToken("293982792560-qf1jf00h91r5a30k91bjraklfqts990u.apps.googleusercontent.com")
+                                    .requestEmail()
+                                    .build()
+                            val signInClient = GoogleSignIn.getClient(localContext, gso)
+                            signInClient.signOut()
+                            navController.navigate(route = SplashScreen.route) {
                                 launchSingleTop = true
                             }
                         }
                     }
-                   Spacer(modifier = Modifier.size(height = 80.dp, width = 0.dp))
+                    Spacer(modifier = Modifier.size(height = 80.dp, width = 0.dp))
                 }
 
             }
@@ -181,7 +193,7 @@ fun ProfileSection() {
                 },
                 supportingContent = {
                     Text(
-                        text = if(user?.email?.isEmpty() ==true) "user@example.com" else user?.email!!,
+                        text = if (user?.email?.isEmpty() == true) "user@example.com" else user?.email!!,
                         style = TextStyle(
                             fontSize = 12.sp,
                             lineHeight = 16.sp,
@@ -287,11 +299,14 @@ fun CutOutSection() {
 }
 
 @Composable
-fun LogoutButton(onClick:() -> Unit) {
+fun LogoutButton(onClick: () -> Unit) {
     Row(
     ) {
         Button(
-            onClick = { onClick() },
+            onClick = {
+                onClick()
+
+            },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
                 contentColor = Color(0xFFEA3131),
