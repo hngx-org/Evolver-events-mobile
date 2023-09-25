@@ -7,7 +7,7 @@ import com.evolver.eventsapp.model.CreateEventsData
 fun CreateEventsEntity.toCreateEventsData(): CreateEventsData {
     return CreateEventsData(
         data = this.data,
-        message = this.message,
+        msg = this.msg,
         status = this.status
     )
 }

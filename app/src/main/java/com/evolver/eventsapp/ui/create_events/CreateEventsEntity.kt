@@ -5,8 +5,8 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 data class CreateEventsEntity(
-    val data: Event,
-    val message: String = "",
+    val data: List<Event> = listOf(),
+    val msg: String = "",
     val status: String = "",
 )
 

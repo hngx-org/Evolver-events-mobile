@@ -26,7 +26,7 @@ class CreateEventViewModel @Inject constructor(
     }
 
     private val _status = MutableStateFlow("success")
-    private val _message = MutableStateFlow("Events retrieved successfully")
+    private val _message = MutableStateFlow("Event created")
 
     private val entity = combine(
         flow = _vmstate,
@@ -34,8 +34,8 @@ class CreateEventViewModel @Inject constructor(
         flow3 = _status,
         transform = { event, message, status ->
             CreateEventsEntity(
-                data = event.toEvent(),
-                message = message,
+                data = listOf(event.toEvent()),
+                msg = message,
                 status = status
             )
         }
